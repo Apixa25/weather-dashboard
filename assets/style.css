@@ -12,7 +12,9 @@ h1 {
     padding: 18px 0;
     text-align: center;
     font-size: 1.75rem;
-    background: #5372f0;
+    /* background: #5372f0; */
+    /* height: 100px; */
+    background-image: linear-gradient(to right, red, blue);
 }
 .container {
     display: flex;
@@ -67,11 +69,13 @@ h1 {
     background: #6C757D;
 }
 .current-weather {
-    color: #fff;
+    /* color: #fff; */
     display: flex;
     border-radius: 5px;
     padding: 20px 70px 20px 20px;
     background: #5372f0;
+    /* background-image: url("./1409229-bigthumbnail.jpg"); */
+    object-fit: cover;
     justify-content: space-between;
 }
 .current-weather h2 {
