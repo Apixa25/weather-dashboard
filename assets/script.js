@@ -10,7 +10,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0) { // HTML for the main weather card
         return `<div class="details">
                     <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2>
-                    <h6>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
+                    <h6>Temperature: ${(weatherItem.main.temp - 0).toFixed(2)}°F</h6>
                     <h6>Wind: ${weatherItem.wind.speed} M/S</h6>
                     <h6>Humidity: ${weatherItem.main.humidity}%</h6>
                 </div>
@@ -22,7 +22,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
         return `<li class="card">
                     <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
                     <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-                    <h6>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°C</h6>
+                    <h6>Temp: ${(weatherItem.main.temp - 0).toFixed(2)}°F</h6>
                     <h6>Wind: ${weatherItem.wind.speed} M/S</h6>
                     <h6>Humidity: ${weatherItem.main.humidity}%</h6>
                 </li>`;
@@ -30,7 +30,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 }
 
 const getWeatherDetails = (cityName, latitude, longitude) => {
-    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${API_KEY}`;
 
     fetch(WEATHER_API_URL).then(response => response.json()).then(data => {
         // Filter the forecasts to get only one forecast per day
@@ -97,44 +97,57 @@ const getUserCoordinates = () => {
             }
         });
 }
-// add on click event listener 
-$(".search-btn").on("click", function(event) {
-    event.preventDefault();
-    console.log();
+// // add on click event listener 
+// $(".search-btn").on("click", function(event) {
+//     event.preventDefault();
+//     console.log();
 
-    var city = $(".city-input").val().trim();
-    getWeatherDetails(cityName);
-    if (!searchHistoryList.includes(cityName)) {
-        searchHistoryList.push(cityName);
-        var searchedCity = $(`
-            <li class="list-group-item">${cityName}</li>
-            `);
-        $("#searchHistory").append(searchedCity);
-    };
+//     var cityName = $(".city-input").val().trim();
+//     getWeatherDetails(cityName);
+//     if (!searchHistoryList.includes(cityName)) {
+//         searchHistoryList.push(cityName);
+//         var searchedCity = $(`
+//             <li class="list-group-item">${cityName}</li>
+//             `);
+//         $("#searchHistory").append(searchedCity);
+//     };
     
-    localStorage.setItem("city", JSON.stringify(searchHistoryList));
-    console.log(searchHistoryList);
-});
+//     localStorage.setItem("city", JSON.stringify(searchHistoryList));
+//     console.log(searchHistoryList);
+// });
 
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-$(document).on("click", ".list-group-item", function() {
-    var listCity = $(this).text();
-    getWeatherDetails(listCity);
-});
+// // WHEN I click on a city in the search history
+// // THEN I am again presented with current and future conditions for that city
+// $(document).on("click", ".list-group-item", function() {
+//     var listCity = $(this).text();
+//     getWeatherDetails(listCity);
+// });
 
-// WHEN I open the weather dashboard
-// THEN I am presented with the last searched city forecast
-$(document).ready(function() {
-    var searchHistoryArr = JSON.parse(localStorage.getItem("city"));
+// // WHEN I open the weather dashboard
+// // THEN I am presented with the last searched city forecast
+// $(document).ready(function() {
+//     var searchHistoryArr = JSON.parse(localStorage.getItem("city"));
 
-    if (searchHistoryArr !== null) {
-        var lastSearchedIndex = searchHistoryArr.length - 1;
-        var lastSearchedCity = searchHistoryArr[lastSearchedIndex];
-        getWeatherDetails(lastSearchedCity);
-        console.log(`Last searched city: ${lastSearchedCity}`);
-    }
-});
+//     if (searchHistoryArr !== null) {
+//         var lastSearchedIndex = searchHistoryArr.length - 1;
+//         var lastSearchedCity = searchHistoryArr[lastSearchedIndex];
+//         getWeatherDetails(lastSearchedCity);
+//         console.log(`Last searched city: ${lastSearchedCity}`);
+//     }
+// });
+
+
+// Get the search input element
+const searchInput = document.getElementById(".city-input");
+// Get the last thing the user searched for
+// const lastSearch = searchInput.value;
+// Create a new button element
+const button = document.createElement("button");
+// Set the button's text to the last search term
+button.textContent = searchInput;
+// Append the button to the DOM
+document.body.appendChild(button);
+
 
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);

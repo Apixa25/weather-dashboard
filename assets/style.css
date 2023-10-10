@@ -66,16 +66,19 @@ h1 {
     width: 100%;
 }
 .weather-input .location-btn {
-    background: #6C757D;
+    background: #24659f;
 }
 .current-weather {
     /* color: #fff; */
+    font-size: 28px;
     display: flex;
     border-radius: 5px;
     padding: 20px 70px 20px 20px;
     background: #5372f0;
-    /* background-image: url("./1409229-bigthumbnail.jpg"); */
-    object-fit: cover;
+    background-image: url("./new.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
     justify-content: space-between;
 }
 .current-weather h2 {
@@ -107,8 +110,9 @@ h1 {
     color: #fff;
     padding: 18px 16px;
     border-radius: 5px;
-    background: #6C757D;
+    background: #3e84c2;
     width: calc(100%/5);
+    font-size: 25px;
 }
 .weather-cards .card img {
     max-width: 70px;
