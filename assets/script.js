@@ -97,6 +97,11 @@ const getUserCoordinates = () => {
             }
         });
 }
+
+
+
+
+
 // // add on click event listener 
 // $(".search-btn").on("click", function(event) {
 //     event.preventDefault();
@@ -152,3 +157,29 @@ document.body.appendChild(button);
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
 cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());
+
+var savedCities = document.getElementById(".location-btn2");
+var loggedCities = [];
+function displaySavedCities() {
+
+    if (localStorage.getItem("cityName")) {
+        loggedCities = JSON.parse(localStorage.getItem("cityName"));
+    }
+
+    var cityName = "";
+    for (let i = 0; i < loggedCities.length; i++) {
+        cityList = cityName + `<button>${loggedCities[i]}</button>`;
+    }
+    
+    // savedWords.innerHTML = cityName;
+
+    var buttonMargin = document.querySelectorAll(".location-btn2");
+    for (let i = 0; i < buttonMargin.length; i++) {
+        buttonMargin[i].addEventListener("click", function() {
+            // quoteGenerator(this.textContent);
+            // giphyGenerator(this.textContent);
+        });
+    }
+}
+
+displaySavedCities();
